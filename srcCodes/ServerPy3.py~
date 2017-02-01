@@ -35,23 +35,15 @@ class myHandler(BaseHTTPRequestHandler):
 			if self.path.endswith(".css"):
 				mimetype='text/css'
 				sendReply = True
-			if self.path.endswith(".png"):
-				print("***********png request received*******")
-				mimetype='image/png'
-				sendReply = True
-			if self.path.endswith(".svg"):
-				print("***********svg request received*******")
-				mimetype='image/svg+xml'
-				sendReply = True
-			
+
 
 			if sendReply == True:
 				#Open the static file requested and send it
-				f = open(curdir + sep + self.path,'rb') 
+				f = open(curdir + sep + self.path) 
 				self.send_response(200)
 				self.send_header('Content-type',mimetype)
 				self.end_headers()
-				self.wfile.write(f.read())
+				self.wfile.write(f.read().encode())
 				f.close()
 			return
 	
